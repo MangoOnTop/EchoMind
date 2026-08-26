@@ -35,15 +35,21 @@ EchoMind/
 
 ### Running the Chatbot
 
-1. Open your terminal in the project root directory.
-2. Run `src/main.py` directly :
-Bash
+1. Clone the repository and move into the project directory:
 
+```bash
+git clone https://github.com/YOUR_USERNAME/EchoMind.git
+cd EchoMind
 ```
+
+2. Open your terminal in the project root directory.
+3. Run `src/main.py` directly:
+
+```bash
 python src/main.py
 ```
 
-1. Type your messages in the prompt. Type `bye`, `exit`, or `quit` to end the session.
+4. Type your messages in the prompt. Type `bye`, `exit`, or `quit` to end the session.
 
 ### Example Commands You Can Try
 
