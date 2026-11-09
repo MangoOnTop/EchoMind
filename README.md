@@ -1,68 +1,101 @@
-# EchoMind 
-A lightweight, terminal-based rule-engine chatbot built in Python. **EchoMind** serves as a beginner-friendly exploration into state management, session memory, and intent mapping—foundational concepts used by modern AI agents.
+# EchoMind 🧠
+A lightweight, modern rule-engine chatbot and persistent memory assistant built in Python. **EchoMind** serves as a beginner-friendly exploration into state management, session memory, and intent mapping—foundational concepts used by modern AI agents—now with both a **modern desktop GUI** and a classic terminal CLI!
 
 ## What It Is
-EchoMind is a rule-based chatbot running directly in the command line. Unlike stateless scripts, it tracks user profile details, session metadata, and conversation history across restarts using a structured JSON schema.
+EchoMind is a rule-based agent with dual interfaces:
+1. **Modern Desktop GUI:** A sleek dark-mode desktop window featuring real-time memory inspection, interactive prompt chips, and a scrollable bubble chat feed.
+2. **Terminal CLI:** A lightweight command-line interface for fast terminal interaction.
+
+Unlike stateless scripts, EchoMind tracks user profile details, session metadata, and conversation history across restarts using a structured JSON schema (`echomind_memory.json`).
 
 ### Key Features
 
-- **Persistent Memory:** Remembers your name and location across terminal sessions using `echomind_memory.json`.
-- **Context Awareness:** Recalls previous inputs (e.g., answering `"what did i say?"` using short-term conversation logs).
-- **Modular Architecture:** Cleanly separates memory schema, intent triggers, execution handlers, and file operations.
-- **Self-Healing State:** Automatically generates a new memory file from `schema.py` if missing or corrupted.
+- **🎨 Modern Desktop GUI:** Beautiful dark-themed interface built with zero external dependencies (pure Python Tkinter). Features real-time memory state display, quick action buttons, prompt chips, and an in-app JSON inspector.
+- **💾 Persistent Memory:** Remembers your name, location, favorite games, and hobbies across sessions using `echomind_memory.json`.
+- **🧠 Context Awareness:** Recalls previous statements (e.g., answering `"what did i say?"` using short-term conversation logs).
+- **🔤 Punctuation-Safe Matching:** Built-in normalization handles punctuation, contractions, and varying cases seamlessly (e.g. `"Hello!"`, `"What's my name?"`, `"Where do I live?"`).
+- **🛡️ Self-Healing State:** Automatically verifies and heals the memory file against `schema.py` if missing or corrupted.
+- **📁 Universal Launchers:** Run anywhere—from project root, from `src/`, or via one-click Windows batch files (`run_gui.bat`, `run_cli.bat`).
+
+---
 
 ## Project Structure
-Plaintext
 
 ```
 EchoMind/
 ├── .gitignore
 ├── README.md
+├── gui.py                  # Main Desktop GUI launcher
+├── run.py                  # Universal launcher (GUI by default, --cli for terminal)
+├── run_gui.bat             # 1-click Windows launcher for GUI
+├── run_cli.bat             # 1-click Windows launcher for CLI
+├── echomind_memory.json    # Auto-generated persistent JSON memory
 └── src/
     ├── schema.py           # Blueprint for user profile & conversation memory
-    ├── memory_manager.py   # Handles reading, writing, and resetting JSON memory
+    ├── memory_manager.py   # Handles reading, writing, and self-healing JSON memory
     ├── rules.py            # Keyword triggers mapped to intent categories
     ├── handler.py          # Functions that process logic for matched intents
     ├── handler_mapping.py  # Dictionary linking intent keys to handler functions
-    └── main.py             # Main terminal chat loop
+    ├── engine.py           # Central intent matching & conversation engine
+    ├── gui.py              # Modern Tkinter desktop application
+    └── main.py             # Classic terminal chat loop
 ```
 
-## How to Make It Work
+---
+
+## How to Run
 
 ### Prerequisites
 
-- Python 3.8 or higher installed on your system.
+- Python 3.8 or higher installed on your system (standard installation includes Tkinter).
 
-### Running the Chatbot
+### 1. Launching the Modern Desktop GUI (Recommended)
 
-1. Clone the repository and move into the project directory:
+From the project root directory, run:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/EchoMind.git
-cd EchoMind
+python gui.py
+```
+*Or simply double-click **`run_gui.bat`** on Windows!*
+
+### 2. Launching via Universal Launcher
+
+```bash
+python run.py         # Launches the modern GUI
+python run.py --cli   # Launches the Terminal CLI
 ```
 
-2. Open your terminal in the project root directory.
-3. Run `src/main.py` directly:
+### 3. Launching the Terminal CLI Directly
 
 ```bash
 python src/main.py
 ```
+*Or double-click **`run_cli.bat`** on Windows.*
 
-4. Type your messages in the prompt. Type `bye`, `exit`, or `quit` to end the session.
+Type `bye`, `exit`, or `quit` to end the session.
 
-### Example Commands You Can Try
+---
 
-- **Set Name:** `"my name is mahi"`
-- **Recall Identity:** `"who am i?"` or `"what is my name?"`
-- **Recall Last Message:** `"what did i say?"`
-- **Set Location:** `"i live in Tokyo"` or `"i am from London"`
-- **Clear Data:** `"forget me"`
-- **Get Help:** `"help"`
+## Example Commands You Can Try
+
+| Category | Example Inputs | EchoMind Action |
+|---|---|---|
+| **Identity** | `"My name is Mahi"`, `"Call me Sarah"` | Saves name to persistent profile |
+| **Recall Identity** | `"Who am I?"`, `"What is my name?"` | Retrieves stored username |
+| **Location** | `"I live in Tokyo"`, `"I am from London"` | Saves location to persistent profile |
+| **Recall Location** | `"Where do I live?"`, `"Where am I from?"` | Retrieves stored location |
+| **Favorites** | `"My favorite game is Cyberpunk"`, `"My hobby is Coding"` | Stores game & hobby |
+| **Recall Favorites** | `"What is my favorite game?"`, `"What is my hobby?"` | Retrieves saved favorites |
+| **Short-Term Memory** | `"What did I say?"`, `"What did I just say?"` | Recalls previous statement |
+| **Memory Status** | `"Show memory"`, `"My profile"` | Displays full session and profile stats |
+| **Clear Data** | `"Forget me"`, `"Reset my memory"` | Wipes stored profile data safely |
+| **Help & Info** | `"Help"`, `"Who are you"`, `"How are you"` | Explains capabilities and status |
+| **Farewell** | `"Bye"`, `"Goodbye"`, `"Exit"` | Greets goodbye by name and ends session |
+
+---
 
 ## Limitations
 
-- **Exact Keyword Matching:** Relies on predefined keyword lists and sub-string matching rather than Natural Language Processing (NLP) or LLMs. Phrasing outside defined triggers will result in fallback responses.
-- **Sequential Processing:** Matches the first keyword intent found; it cannot handle complex multi-intent statements in a single turn.
-- **Simple Recall Window:** Short-term recall is basic and only looks back to immediate preceding messages rather than semantic search across long history logs.
-- **Local JSON Storage:** Memory is stored in a plain local JSON file without encryption, designed strictly for learning purposes rather than production storage.
+- **Rule & Pattern Matching:** Operates using pattern recognition and substring matching rather than a heavy cloud LLM.
+- **Single-Turn Focus:** Focuses on immediate triggers and turn-by-turn memory rather than deep multi-paragraph reasoning.
+- **Local JSON Storage:** Memory is stored in a clean local JSON file without encryption, perfect for local desktop privacy and learning.

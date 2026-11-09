@@ -1,0 +1,19 @@
+{
+    "metadata": {
+        "version": "1.0",
+        "create-time": "2026-08-25",
+        "latest-update-time": "2026-11-09 08:34:59",
+        "session_count": 1,
+        "last_saved": "2026-11-09 08:34:59",
+        "session_start_time": "2026-11-09 08:34:59"
+    },
+    "user_profile": {
+        "username": null,
+        "location": null,
+        "living": null,
+        "fav_hobby": null,
+        "fav_game": null,
+        "important_fact": []
+    },
+    "conversation_history": []
+}
