@@ -2,11 +2,15 @@ import os
 import sys
 
 # Ensure project root in sys.path
+<<<<<<< HEAD
 if getattr(sys, "frozen", False):
     PROJECT_ROOT = os.path.dirname(sys.executable)
 else:
     PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+=======
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+>>>>>>> 4bedd04adc7f07915fcd65748dfd626673b8eb53
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 

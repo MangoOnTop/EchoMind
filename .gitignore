@@ -1,6 +1,10 @@
 __pycache__/
 *.pyc
+<<<<<<< HEAD
 echomind_memory.json
 build/
 dist/
 *.spec
+=======
+echomind_memory.json
+>>>>>>> 4bedd04adc7f07915fcd65748dfd626673b8eb53
